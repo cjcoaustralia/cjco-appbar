@@ -1,0 +1,31 @@
+.cjco-app-wrapper{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background-color: #efefef;
+    z-index: 9999999999;
+}
+.cjco-app-inner{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+}
+.cjco-app-url{
+    text-decoration: none;
+}
+.cjco-app-inner p.cjco-app-text{
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    line-height: 1.8;
+    color: inherit !important;
+}
+.cjco-app-inner .cjco-app-icon{
+    height: 16px;
+}
