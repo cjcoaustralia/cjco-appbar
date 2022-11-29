@@ -32,6 +32,9 @@ const cjcoAppBarStart=(data)=>{
     var device = getDeviceOperatingSystem();
 
     // create app bar wrapper
+    if(document.querySelector('.cjco-app-wrapper')){
+        return;
+    }
     var appWrapper = document.createElement("div")
     appWrapper.classList.add('cjco-app-wrapper')
     appWrapper.style.background = data.backgroud
@@ -102,12 +105,12 @@ const cjcoAppBarStart=(data)=>{
         ease: 'elastic.inOut(1, 0.5)'
     })
 
-    // tl.from('.flow-up', {
-    //     y: 50,
-    //     duration: 2.6,
-    //     stagger: 0.2,
-    //     ease: 'elastic.inOut(1, 0.5)'
-    // }, -0.0001)
+    tl.from('.flow-up', {
+        y: 50,
+        duration: 2.6,
+        stagger: 0.2,
+        ease: 'elastic.inOut(1, 0.5)'
+    }, -0.0001)
 
 }
 
