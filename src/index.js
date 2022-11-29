@@ -4,9 +4,6 @@ require('@fortawesome/fontawesome-free/js/solid')
 require('@fortawesome/fontawesome-free/js/regular')
 require('@fortawesome/fontawesome-free/js/brands')
 const {gsap} =  require("gsap");
-const {ScrollTrigger} = require("gsap/ScrollTrigger");
-
-gsap.registerPlugin(ScrollTrigger);
 
 function getDeviceOperatingSystem() {
     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -105,12 +102,12 @@ const cjcoAppBarStart=(data)=>{
         ease: 'elastic.inOut(1, 0.5)'
     })
 
-    tl.from('.flow-up', {
-        y: 50,
-        duration: 2.6,
-        stagger: 0.2,
-        ease: 'elastic.inOut(1, 0.5)'
-    }, -0.0001)
+    // tl.from('.flow-up', {
+    //     y: 50,
+    //     duration: 2.6,
+    //     stagger: 0.2,
+    //     ease: 'elastic.inOut(1, 0.5)'
+    // }, -0.0001)
 
 }
 
