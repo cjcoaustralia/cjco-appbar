@@ -24,9 +24,10 @@ function getDeviceOperatingSystem() {
 }
 
 const cjcoAppBarStart=(data)=>{
-    // console data
-    // console.log(data.url)
-    // console.log(data.text)
+    
+    if(typeof data.icon == 'undefined'){
+        data.icon = true
+    }
 
     // get device type
     var device = getDeviceOperatingSystem();
@@ -44,14 +45,24 @@ const cjcoAppBarStart=(data)=>{
     appHref.classList.add('cjco-app-url')
     appHref.target = '_blank'
 
-    if(device == 'Android'){
-        appHref.href = data.android
-    }
-    else if(device == 'iOS'){
-        appHref.href = data.ios
-    }
-    else{
-        appHref.href = data.ios
+    if(data.url){
+        appHref.href = data.url
+    }else{
+        if(device == 'Android'){
+            if(data.android){
+                appHref.href = data.android
+            }
+        }
+        else if(device == 'iOS'){
+            if(data.ios){
+                appHref.href = data.ios
+            }
+        }
+        else{
+            if(data.ios){
+                appHref.href = data.ios
+            }
+        }
     }
 
 
@@ -73,27 +84,36 @@ const cjcoAppBarStart=(data)=>{
     var appIcon = document.createElement("i")
     appIcon.classList.add('cjco-app-icon')
 
-    if(device == 'Windows'){
-        appIcon.classList.add('fa-brands', 'fa-windows')
-    }
-    else if(device == 'Android'){
-        appIcon.classList.add('fab', 'fa-google-play')
-    }
-    else if(device == 'iOS'){
-        appIcon.classList.add('fa-brands', 'fa-app-store')
-    }
-    else{
-        appIcon.classList.add('fa-brands', 'fa-app-store')
+    if(data.url){
+        appIcon.classList.add('fa', 'fa-arrow-right')
+    }else{
+        if(device == 'Windows'){
+            appIcon.classList.add('fa-brands', 'fa-windows')
+        }
+        else if(device == 'Android'){
+            appIcon.classList.add('fab', 'fa-google-play')
+        }
+        else if(device == 'iOS'){
+            appIcon.classList.add('fa-brands', 'fa-app-store')
+        }
+        else{
+            appIcon.classList.add('fa-brands', 'fa-app-store')
+        }
     }
 
-    appIconWrap.appendChild(appIcon)
+    if(data.icon == true){
+        appIconWrap.appendChild(appIcon)
+    }
 
     const body = document.body
     body.appendChild(appWrapper)
     appWrapper.appendChild(appHref)
     appHref.appendChild(appInner)
     appInner.append(appText)
-    appInner.append(appIconWrap)
+
+    if(data.icon == true){
+        appInner.append(appIconWrap)
+    }
 
     var barHeight = appWrapper.clientHeight;
 
