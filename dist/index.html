@@ -5,5 +5,26 @@
     <title>Webpack App</title>
   </head>
   <body>
-  <script type="text/javascript" src="main.js"></script></body>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/rijushm/cjco-appbar/dist/main.js"></script>
+  <script>
+    cjco.appBar({
+        text: 'Download our app today',
+        icon: false,
+        ios: 'https://cjco.com.au/ios',
+        android: 'https://cjco.com.au/android',
+        backgroud: 'linear-gradient(50deg, #be3691, #e65432)',
+        color: '#FFFFFF',
+        automate: [
+          {
+            text: 'Email us',
+            days: ['Monday', 'Thursday', 'Friday'],
+            startTime: '19:00:00',
+            endTime: '21:00:00',
+            country: 'australia',
+            city: 'brisbane',
+            url: 'mailto:info@cjco.com.au'
+          }
+        ]
+    })
+</script>
 </html>
