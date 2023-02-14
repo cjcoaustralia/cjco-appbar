@@ -1,6 +1,7 @@
 const path = require('path')
-const MinifyPlugin = require("babel-minify-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TerserPlugin = require("terser-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
 
@@ -19,24 +20,55 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: "babel-loader"
+                    loader: 'babel-loader'
                 }
             },
             {
-                test: /\.css$/,
-                loader: ['style-loader', 'css-loader']
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
             },
             {
-                test: /\.(svg|eot|woff|woff2|ttf)$/,
-                use: ['file-loader']
+              test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+              use: [
+                {
+                  loader: 'file-loader',
+                  options: {
+                    name: '[name].[ext]',
+                    outputPath: 'fonts/'
+                  }
+                }
+              ]
             }
         ]
     },
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({
+                terserOptions: {
+                  compress: {},
+                  mangle: true,
+                  format: {
+                    comments: false,
+                  },
+                },
+                extractComments: false,
+                parallel: true,
+            }),
+            "...",
+            new CssMinimizerPlugin({
+                minimizerOptions: {
+                  preset: [
+                    "default",
+                    {
+                      discardComments: { removeAll: true },
+                    },
+                  ],
+                },
+            })
+        ]
+    },
     plugins: [
-        new MinifyPlugin({},{
-            comments: false
-        }),
-        new HtmlWebpackPlugin()
-    ]
-
+        new HtmlWebpackPlugin(),
+    ],
 }

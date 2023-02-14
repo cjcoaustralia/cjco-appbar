@@ -1,10 +1,16 @@
 require('./style.css')
-require('@fortawesome/fontawesome-free/js/fontawesome')
-require('@fortawesome/fontawesome-free/js/solid')
-require('@fortawesome/fontawesome-free/js/regular')
-require('@fortawesome/fontawesome-free/js/brands')
 const {gsap} =  require("gsap");
-var moment = require('moment-timezone');
+const dayjs = require('dayjs')
+var utc = require('dayjs/plugin/utc')
+var timezone = require('dayjs/plugin/timezone')
+var customParseFormat = require('dayjs/plugin/customParseFormat')
+var isBetween = require('dayjs/plugin/isBetween')
+var fa = require('font-awesome/css/font-awesome.css');
+
+dayjs.extend(isBetween)
+dayjs.extend(customParseFormat)
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 function getDeviceOperatingSystem() {
     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -97,13 +103,13 @@ const cjcoAppBarStart = async (data)=>{
 
             var week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-            const weekDayIndexAPI = moment().day();
+            const weekDayIndexAPI = dayjs().day();
 
-            currentDate = moment().tz(`${automate.country}/${automate.city}`).format();
+            currentDate = dayjs().tz(`${automate.country}/${automate.city}`).format();
 
-            currentStoreDate = moment().format('YYYY-MM-DD')
-            startDate = moment.tz(`${currentStoreDate} ${automate.startTime}`, `${automate.country}/${automate.city}`).format();
-            endDate = moment.tz(`${currentStoreDate} ${automate.endTime}`, `${automate.country}/${automate.city}`).format();
+            currentStoreDate = dayjs().format('YYYY-MM-DD')
+            startDate = dayjs.tz(`${currentStoreDate} ${automate.startTime}`, `${automate.country}/${automate.city}`).format();
+            endDate = dayjs.tz(`${currentStoreDate} ${automate.endTime}`, `${automate.country}/${automate.city}`).format();
 
             if(automate.days){
                 automate.days.forEach((day)=>{
@@ -113,7 +119,7 @@ const cjcoAppBarStart = async (data)=>{
                         
                         if(weekDayIndexAPI == weekDayIndex){
 
-                            if(moment(currentDate).isBetween(startDate, endDate)){
+                            if(dayjs(currentDate).isBetween(startDate, endDate)){
                                 mainUrl = automate.url
                                 ctaText = automate.text
                             }
@@ -129,30 +135,7 @@ const cjcoAppBarStart = async (data)=>{
 
             appHref.href = mainUrl
             appText.innerHTML = ctaText;
-
-            // fetch(url)
-            //     .then(r => r.json())
-            //     .then(r => {
-            //         const day_of_week = r.day_of_week;
-
-            //         automate.days.forEach((day)=>{
             
-            //             if(week.includes(day)){
-            //                 weekDayIndex = week.indexOf(day);
-                            
-            //                 if(day_of_week == weekDayIndex){
-            //                     console.log('matched')
-            //                     mainUrl = automate.url
-            //                     ctaText = automate.text
-            //                 }
-            //             }else{
-            //                 console.error('Insert a correct name of weekday. Inserted: '+day)
-            //                 return;
-            //             }
-        
-            //         })
-
-            // });
         });
     }
 
