@@ -220,7 +220,7 @@ const isValidHttpUrl = (string) => {
     return url.protocol === "http:" || url.protocol === "https:";
 }
 
-const attention = (data) => {
+const attentionStart = (data) => {
     var defaults = {
         titles: [document.title],
         effect: 'blink',
@@ -409,33 +409,37 @@ const attention = (data) => {
         return _instance;
     }
     var favEmoji = new BlinkFaviconEmoji(data);
-
-    window.addEventListener("DOMContentLoaded", () => {
-        document.addEventListener("visibilitychange", function () {
-            if (document.visibilityState === "visible") {
-                if (data.effect == 'blink') {
-                    blink.stop();
-                } else if (data.effect == 'scroll') {
-                    marquee.stop();
-                }
-
-                if (data.favicon) {
-                    favEmoji.stop();
-                }
-            } else {
-                if (data.effect == 'blink') {
-                    blink.init();
-                } else if (data.effect == 'scroll') {
-                    marquee.init();
-                }
-
-                if (data.favicon) {
-                    favEmoji.init();
-                }
+    
+    document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "visible") {
+            if (data.effect == 'blink') {
+                blink.stop();
+            } else if (data.effect == 'scroll') {
+                marquee.stop();
             }
-        });
+
+            if (data.favicon) {
+                favEmoji.stop();
+            }
+        } else {
+            if (data.effect == 'blink') {
+                blink.init();
+            } else if (data.effect == 'scroll') {
+                marquee.init();
+            }
+
+            if (data.favicon) {
+                favEmoji.init();
+            }
+        }
     });
 
+}
+
+const attention = (data) =>{
+    window.addEventListener("DOMContentLoaded", () => {
+        attentionStart(data)
+    })
 }
 
 module.exports = {
