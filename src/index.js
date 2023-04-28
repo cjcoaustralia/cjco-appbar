@@ -240,35 +240,35 @@ const attention = (data) => {
         var totalTiles = data.message.length;
         tempTitles = data.message;
 
-        function updateTitle(){
-            for (var x = 0; x <= (totalTiles * 2); x+=2) {
+        function updateTitle() {
+            for (var x = 0; x <= (totalTiles * 2); x += 2) {
                 tempTitles.splice(x, 0, " \u200e");
             }
-    
+
             tempTitles.shift();
             data.message = tempTitles;
         }
 
-        function blink(){
+        function blink() {
             updateTitle();
 
             var i = 0;
 
-            timeoutId = setInterval(function() {
+            timeoutId = setInterval(function () {
 
                 text = data.message[i];
                 document.title = text;
-    
+
                 if (i == (data.message.length - 1)) {
                     i = 0;
-                }else{
+                } else {
                     i++;
                 }
-                
+
             }, data.delay || defaults.delay);
         }
 
-        function clear(){
+        function clear() {
             if (timeoutId) {
                 clearInterval(timeoutId);
             }
@@ -290,17 +290,17 @@ const attention = (data) => {
         var index = 0;
         var timeoutId;
 
-        var updateTitle = function() {
+        var updateTitle = function () {
             document.title = data.message[index];
             index = (index + 1) % data.message.length;
         };
-        var clear = function() {
+        var clear = function () {
             clearInterval(timeoutId);
             document.title = oldTitle;
             window.onmousemove = null;
             timeoutId = null;
         };
-        var blink = function() {
+        var blink = function () {
             if (!timeoutId) {
                 timeoutId = setInterval(updateTitle, data.delay || defaults.delay);
                 window.onmousemove = clear;
@@ -321,37 +321,37 @@ const attention = (data) => {
 
         var writeText;
 
-        if(data.seperator){
-            writeText = ` ${data.message.join(` `+data.seperator+` `)} ${data.seperator} `;
-        }else{
-            writeText = ` ${data.message.join(` `+defaults.seperator+` `)} ${defaults.seperator} `;
+        if (data.seperator) {
+            writeText = ` ${data.message.join(` ` + data.seperator + ` `)} ${data.seperator} `;
+        } else {
+            writeText = ` ${data.message.join(` ` + defaults.seperator + ` `)} ${defaults.seperator} `;
         }
 
         var _currId = 0;
         var _numberOfLetters = writeText.length;
-    
+
         function updateTitle() {
             _currId += 1;
-            if(_currId > _numberOfLetters - 1) {
-                _currId = 0; 
+            if (_currId > _numberOfLetters - 1) {
+                _currId = 0;
             }
-    
+
             var startId = _currId;
             var endId = startId + visibleLetters;
             var finalText;
-            if(endId < _numberOfLetters - 1) {
+            if (endId < _numberOfLetters - 1) {
                 finalText = writeText.substring(startId, endId);
             } else {
                 var cappedEndId = _numberOfLetters;
                 endId = endId - cappedEndId;
-    
+
                 finalText = writeText.substring(startId, cappedEndId) + writeText.substring(0, endId);
             }
-    
-            document.title = finalText; 
+
+            document.title = finalText;
         }
 
-        function marquee(){
+        function marquee() {
             timeoutId = setInterval(updateTitle, data.delay);
         }
 
@@ -363,11 +363,11 @@ const attention = (data) => {
             window.onmousemove = null;
             timeoutId = null;
         };
-    
+
         _instance.init = marquee;
 
         _instance.stop = clear;
-    
+
         return _instance;
     }
     var marquee = new MovingTitle(data, 40);
@@ -380,9 +380,9 @@ const attention = (data) => {
         let index = 0;
 
         let updateFavicon = function () {
-            if(!isValidHttpUrl(data.favicon.icon[index])){
+            if (!isValidHttpUrl(data.favicon.icon[index])) {
                 document.querySelector("link[rel~='icon']").setAttribute("href", `data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${data.favicon.icon[index]}</text></svg>`);
-            }else{
+            } else {
                 document.querySelector("link[rel~='icon']").setAttribute("href", data.favicon.icon[index]);
             }
             index = (index + 1) % data.favicon.icon.length;
@@ -401,7 +401,7 @@ const attention = (data) => {
                 window.onmousemove = clear;
             }
         }
-        
+
         _instance.init = blink;
 
         _instance.stop = clear;
@@ -409,32 +409,33 @@ const attention = (data) => {
         return _instance;
     }
     var favEmoji = new BlinkFaviconEmoji(data);
-    
-    // Pause blinking when the user is not looking at the tab
-    document.addEventListener("visibilitychange", function () {
-        if (document.visibilityState === "visible") {
-            if(data.effect == 'blink'){
-                blink.stop();
-            }else if(data.effect == 'scroll'){
-                marquee.stop();
-            }
 
-            if(data.favicon){
-                favEmoji.stop();
-            }
-        } else {
-            if(data.effect == 'blink'){
-                blink.init();
-            }else if(data.effect == 'scroll'){
-                marquee.init();
-            }
+    window.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("visibilitychange", function () {
+            if (document.visibilityState === "visible") {
+                if (data.effect == 'blink') {
+                    blink.stop();
+                } else if (data.effect == 'scroll') {
+                    marquee.stop();
+                }
 
-            if(data.favicon){
-                favEmoji.init();
+                if (data.favicon) {
+                    favEmoji.stop();
+                }
+            } else {
+                if (data.effect == 'blink') {
+                    blink.init();
+                } else if (data.effect == 'scroll') {
+                    marquee.init();
+                }
+
+                if (data.favicon) {
+                    favEmoji.init();
+                }
             }
-        }
+        });
     });
-    
+
 }
 
 module.exports = {
