@@ -1,38 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>CJ&CO Appbar</title>
-  </head>
-  <body>
-    <script type="text/javascript" src="main.js"></script>
-    <script>
-      cjco.appBar({
-          text: 'Email us',
-          icon: true,
-          url: 'mailto:info@cjco.com.au',
-          backgroud: 'linear-gradient(50deg, #6c5ce7, #4834d4)',
-          color: '#FFFFFF',
-          automate: [
-            {
-              text: 'Call us today',
-              days: ['Monday', 'Tuesday', 'Friday'],
-              startTime: '09:00:00',
-              endTime: '16:33:00',
-              country: 'australia',
-              city: 'brisbane',
-              url: 'http://cjco.com.au/brisbane'
-            },
-            {
-              text: 'Call us today 2',
-              days: ['Friday'],
-              startTime: '09:00:00',
-              endTime: '15:32:00',
-              country: 'australia',
-              city: 'sydney',
-              url: 'http://cjco.com.au/sydney'
-            }
-          ]
-      })
+
+<head>
+  <meta charset="UTF-8">
+  <title class="title">CJ&CO Appbar</title>
+  
+  <link rel="icon" type="image/png" href="https://www.google.com/s2/favicons?domain=cjco.com.au&sz=64">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <script type="text/javascript" src="main.js"></script>
+  <script>
+    cjco.appBar({
+      text: 'Email us',
+      icon: false,
+      url: 'mailto:info@cjco.com.au',
+      backgroud: 'linear-gradient(50deg, #6c5ce7, #4834d4)',
+      color: '#FFFFFF',
+      automate: [
+        {
+          text: 'Call us today',
+          days: ['Monday', 'Tuesday', 'Friday'],
+          startTime: '09:00:00',
+          endTime: '16:33:00',
+          country: 'australia',
+          city: 'brisbane',
+          url: 'http://cjco.com.au/brisbane'
+        },
+        {
+          text: 'Call us today 2',
+          days: ['Thursday'],
+          startTime: '09:00:00',
+          endTime: '19:32:00',
+          country: 'australia',
+          city: 'sydney',
+          url: 'http://cjco.com.au/sydney'
+        }
+      ]
+    })
+    
+    cjco.attention({
+      effect: 'scroll',
+      delay: 500,
+      seperator: '🌻',
+      message: ['Premium Fill Kit Worth $75 for FREE', 'EZ-FLO USA'],
+      favicon: {
+        delay: 1800,
+        icon: ['🪴', '🔔', '✨', 'https://www.google.com/s2/favicons?domain=ezfloinjection.com&sz=64']
+      }
+    });
   </script>
+
 </html>

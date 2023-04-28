@@ -1,11 +1,13 @@
-1. Downlaod the main.js file
-or
-add
-`<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cjcoaustralia/cjco-appbar/dist/main.js"></script>`
+1. Downlaod the main.js file or add
 
-2. Add below script
+```html
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cjcoaustralia/cjco-appbar@2.0.0/dist/main.js"></script>
+```
 
-`<script>
+2. Add below script for Appbar
+
+```html
+<script>
     cjco.appBar({
         text: 'Download our app today',
         icon: false,
@@ -25,7 +27,25 @@ add
           }
         ]
     })
-</script>`
+</script>
+```
+
+and below script for Browser Tab Attention
+
+```html
+<script>
+  cjco.attention({
+    effect: 'scroll',
+    delay: 500,
+    seperator: '🌻',
+    message: ['Premium Fill Kit Worth $75 for FREE', 'EZ-FLO USA'],
+    favicon: {
+      delay: 1800,
+      icon: ['🪴', '🔔', '✨', 'https://www.google.com/s2/favicons?domain=ezfloinjection.com&sz=64']
+    }
+  });
+</script>
+```
 
 ## Settings options
 
