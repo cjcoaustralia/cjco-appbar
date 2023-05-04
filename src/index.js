@@ -437,9 +437,14 @@ const attentionStart = (data) => {
 }
 
 const attention = (data) =>{
-    window.addEventListener("DOMContentLoaded", () => {
+    var attentionEl = document.querySelector("link[rel~='icon']");
+    if(attentionEl){
         attentionStart(data)
-    })
+    }else{
+        window.addEventListener("DOMContentLoaded", () => {
+            attentionStart(data)
+        })
+    }
 }
 
 module.exports = {

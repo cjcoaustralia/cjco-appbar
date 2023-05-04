@@ -1,7 +1,7 @@
 1. Downlaod the main.js file or add
 
 ```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cjcoaustralia/cjco-appbar@2.0.0/dist/main.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cjcoaustralia/cjco-appbar@2.0.3/dist/main.js"></script>
 ```
 
 2. Add below script for Appbar
